@@ -1,0 +1,1528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Welcome — Marhaba Club Hotel</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C9A96E;
+    --gold-light: #E8D5B0;
+    --deep: #0D0D0D;
+    --ink: #1A1A1A;
+    --cream: #FAF8F4;
+    --muted: #6B6860;
+    --surface: #F3EFE8;
+    --white: #FFFFFF;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--deep);
+    color: var(--cream);
+    overflow-x: hidden;
+  }
+
+
+  /* ── LANGUAGE SELECTOR ── */
+  .lang-overlay {
+    position: fixed;
+    inset: 0;
+    background: #0D0D0D;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    padding: 2rem;
+  }
+  .lang-overlay-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    font-style: italic;
+    color: var(--gold);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .lang-overlay h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.6rem, 4vw, 2.5rem);
+    font-weight: 300;
+    color: var(--cream);
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
+  .lang-overlay p {
+    font-size: 0.75rem;
+    color: var(--muted);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 3rem;
+    text-align: center;
+  }
+  .lang-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1rem;
+    max-width: 680px;
+    width: 100%;
+  }
+  .lang-btn {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(201,169,110,0.2);
+    border-radius: 3px;
+    padding: 1.4rem 1rem;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.3s;
+    color: var(--cream);
+  }
+  .lang-btn:hover {
+    background: rgba(201,169,110,0.08);
+    border-color: var(--gold);
+    transform: translateY(-2px);
+  }
+  .lang-btn .lang-flag { font-size: 2rem; display: block; margin-bottom: 0.6rem; }
+  .lang-btn .lang-name { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 300; display: block; }
+  .lang-btn .lang-native { font-size: 0.7rem; color: var(--muted); display: block; margin-top: 0.2rem; letter-spacing: 0.1em; }
+
+  /* ── REVIEW LINKS ── */
+  .review-section {
+    background: #0A0908;
+    padding: 4rem 2rem;
+    text-align: center;
+    border-top: 1px solid rgba(201,169,110,0.08);
+  }
+  .review-section .section-eyebrow { margin-bottom: 0.75rem; }
+  .review-section h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 300;
+    margin-bottom: 0.75rem;
+  }
+  .review-section h2 em { font-style: italic; color: var(--gold); }
+  .review-section p { font-size: 0.9rem; color: var(--muted); margin-bottom: 2.5rem; line-height: 1.7; }
+  .review-grid {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1.2rem;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  .review-card {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(201,169,110,0.18);
+    border-radius: 3px;
+    padding: 1rem 1.8rem;
+    text-decoration: none;
+    color: var(--cream);
+    font-size: 0.85rem;
+    transition: all 0.3s;
+    min-width: 190px;
+    justify-content: center;
+  }
+  .review-card:hover {
+    border-color: var(--gold);
+    background: rgba(201,169,110,0.07);
+    transform: translateY(-2px);
+  }
+  .review-card .review-icon { font-size: 1.5rem; }
+  .review-card .review-label { display: flex; flex-direction: column; text-align: left; }
+  .review-card .review-name { font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-weight: 400; }
+  .review-card .review-action { font-size: 0.65rem; color: var(--gold); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 0.1rem; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+    position: relative;
+    background: radial-gradient(ellipse 80% 60% at 50% 40%, #1E1810 0%, var(--deep) 70%);
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23C9A96E' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    pointer-events: none;
+  }
+
+  .hero-eyebrow {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.3s forwards;
+  }
+
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3.5rem, 10vw, 8rem);
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.6s forwards;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .hero-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--gold-light);
+    margin-top: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.9s forwards;
+  }
+
+  .divider-gold {
+    width: 60px;
+    height: 1px;
+    background: var(--gold);
+    margin: 2rem auto;
+    opacity: 0;
+    animation: fadeUp 1s ease 1s forwards;
+  }
+
+  .guest-name-display {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    opacity: 0;
+    animation: fadeUp 1s ease 1.1s forwards;
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    opacity: 0;
+    animation: fadeUp 1s ease 1.5s forwards;
+    cursor: pointer;
+  }
+
+  .scroll-hint span {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+
+  /* ── NAME MODAL ── */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 1.5rem;
+  }
+
+  .modal {
+    background: var(--ink);
+    border: 1px solid rgba(201,169,110,0.2);
+    border-radius: 4px;
+    padding: 3rem 2.5rem;
+    max-width: 460px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .modal-gold-line {
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+    margin: 0 auto 2rem;
+  }
+
+  .modal h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    font-weight: 300;
+    margin-bottom: 0.5rem;
+  }
+
+  .modal p {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-bottom: 2rem;
+    line-height: 1.6;
+  }
+
+  .modal input {
+    width: 100%;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(201,169,110,0.3);
+    border-radius: 2px;
+    padding: 0.9rem 1.2rem;
+    color: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+
+  .modal input::placeholder { color: rgba(255,255,255,0.2); }
+  .modal input:focus { border-color: var(--gold); }
+
+  .btn-gold {
+    background: var(--gold);
+    color: var(--deep);
+    border: none;
+    padding: 0.9rem 2.5rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: background 0.3s, transform 0.2s;
+    width: 100%;
+  }
+
+  .btn-gold:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.2rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(to bottom, rgba(13,13,13,0.95), transparent);
+    transition: background 0.3s;
+  }
+
+  nav.scrolled {
+    background: rgba(13,13,13,0.98);
+    border-bottom: 1px solid rgba(201,169,110,0.1);
+  }
+
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    font-style: italic;
+    color: var(--gold);
+    letter-spacing: 0.05em;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .nav-links a:hover { color: var(--gold); }
+
+  .nav-cta {
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    text-decoration: none;
+    border: 1px solid rgba(201,169,110,0.4);
+    padding: 0.5rem 1.2rem;
+    border-radius: 2px;
+    transition: all 0.3s;
+  }
+
+  .nav-cta:hover {
+    background: var(--gold);
+    color: var(--deep);
+  }
+
+  /* ── SECTIONS ── */
+  section {
+    padding: 6rem 2rem;
+  }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-eyebrow {
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 300;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+  }
+
+  .section-title em { font-style: italic; color: var(--gold); }
+
+  .section-lead {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--muted);
+    max-width: 540px;
+  }
+
+  /* ── WELCOME SECTION ── */
+  .welcome-section {
+    background: var(--surface);
+    color: var(--ink);
+  }
+
+  .welcome-section .section-eyebrow { color: var(--gold); }
+  .welcome-section .section-lead { color: #5A5750; }
+
+  .welcome-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    margin-top: 4rem;
+  }
+
+  .welcome-text-block {
+    background: var(--white);
+    padding: 2.5rem;
+    border-radius: 3px;
+    border-left: 3px solid var(--gold);
+  }
+
+  .welcome-text-block p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.35rem;
+    font-weight: 300;
+    line-height: 1.8;
+    color: var(--ink);
+    font-style: italic;
+  }
+
+  .manager-card {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .manager-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--gold), #8B6914);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    font-weight: 300;
+    color: var(--white);
+    border: 2px solid var(--gold-light);
+  }
+
+  .manager-info h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--ink);
+  }
+
+  .manager-info p {
+    font-size: 0.8rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-top: 0.25rem;
+  }
+
+  /* ── SERVICES ── */
+  .services-section {
+    background: var(--deep);
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5px;
+    margin-top: 4rem;
+    background: rgba(201,169,110,0.1);
+    border: 1px solid rgba(201,169,110,0.1);
+  }
+
+  .service-card {
+    background: var(--ink);
+    padding: 2.5rem;
+    transition: background 0.3s;
+    cursor: default;
+  }
+
+  .service-card:hover {
+    background: #1F1E1A;
+  }
+
+  .service-icon {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    display: block;
+  }
+
+  .service-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 300;
+    margin-bottom: 0.75rem;
+    color: var(--cream);
+  }
+
+  .service-card p {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  .service-tag {
+    display: inline-block;
+    margin-top: 1.2rem;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  /* ── ESSENTIALS / PRACTICAL INFO ── */
+  .info-section {
+    background: #111009;
+  }
+
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 2rem;
+    margin-top: 4rem;
+  }
+
+  .info-card {
+    border: 1px solid rgba(201,169,110,0.15);
+    padding: 2rem;
+    border-radius: 2px;
+    transition: border-color 0.3s;
+  }
+
+  .info-card:hover {
+    border-color: rgba(201,169,110,0.4);
+  }
+
+  .info-card h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    font-weight: 400;
+    margin-bottom: 1rem;
+    color: var(--gold-light);
+  }
+
+  .info-list {
+    list-style: none;
+  }
+
+  .info-list li {
+    font-size: 0.85rem;
+    color: var(--muted);
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .info-list li:last-child { border-bottom: none; }
+
+  .info-list .label { color: var(--cream); }
+
+  /* ── FAQ / ASK ME ── */
+  .ask-section {
+    background: var(--surface);
+    color: var(--ink);
+  }
+
+  .ask-section .section-title { color: var(--ink); }
+  .ask-section .section-lead { color: #5A5750; }
+
+  .faq-list {
+    margin-top: 4rem;
+    max-width: 700px;
+  }
+
+  .faq-item {
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+  }
+
+  .faq-question {
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 1.5rem 0;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .faq-question span {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: var(--ink);
+  }
+
+  .faq-arrow {
+    color: var(--gold);
+    font-size: 1.2rem;
+    transition: transform 0.3s;
+    flex-shrink: 0;
+  }
+
+  .faq-item.open .faq-arrow { transform: rotate(45deg); }
+
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.3s;
+  }
+
+  .faq-item.open .faq-answer {
+    max-height: 200px;
+    padding-bottom: 1.5rem;
+  }
+
+  .faq-answer p {
+    font-size: 0.9rem;
+    line-height: 1.8;
+    color: #5A5750;
+  }
+
+  /* ── CHAT / CONTACT ── */
+  .contact-section {
+    background: var(--deep);
+    text-align: center;
+  }
+
+  .contact-section .section-title { margin: 0 auto 1rem; }
+  .contact-section .section-lead { margin: 0 auto 3rem; }
+
+  .contact-card {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    background: var(--ink);
+    border: 1px solid rgba(201,169,110,0.2);
+    padding: 3rem;
+    border-radius: 3px;
+    max-width: 480px;
+    width: 100%;
+  }
+
+  .chat-input-wrap {
+    width: 100%;
+    position: relative;
+  }
+
+  .chat-input {
+    width: 100%;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(201,169,110,0.25);
+    border-radius: 2px;
+    padding: 1rem 4rem 1rem 1.2rem;
+    color: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    outline: none;
+    resize: none;
+    min-height: 100px;
+    transition: border-color 0.3s;
+  }
+
+  .chat-input::placeholder { color: rgba(255,255,255,0.2); }
+  .chat-input:focus { border-color: var(--gold); }
+
+  .chat-send {
+    position: absolute;
+    bottom: 0.8rem;
+    right: 0.8rem;
+    background: var(--gold);
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 2px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s;
+    color: var(--deep);
+    font-size: 1rem;
+  }
+
+  .chat-send:hover { background: var(--gold-light); }
+
+  .chat-response {
+    width: 100%;
+    background: rgba(201,169,110,0.05);
+    border: 1px solid rgba(201,169,110,0.15);
+    border-radius: 2px;
+    padding: 1rem 1.2rem;
+    font-size: 0.9rem;
+    color: var(--cream);
+    line-height: 1.7;
+    min-height: 60px;
+    display: none;
+  }
+
+  .chat-response.visible { display: block; }
+
+  .contact-options {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .contact-pill {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(201,169,110,0.2);
+    padding: 0.6rem 1.2rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    color: var(--muted);
+    text-decoration: none;
+    transition: all 0.3s;
+    cursor: pointer;
+  }
+
+  .contact-pill:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #080806;
+    padding: 2.5rem;
+    text-align: center;
+    border-top: 1px solid rgba(201,169,110,0.08);
+  }
+
+  footer p {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.15);
+    letter-spacing: 0.1em;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.4; transform: scaleY(1); }
+    50% { opacity: 1; transform: scaleY(1.2); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .welcome-grid { grid-template-columns: 1fr; gap: 2rem; }
+    section { padding: 4rem 1.5rem; }
+    .modal { padding: 2rem 1.5rem; }
+    .contact-card { padding: 2rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- LANGUAGE SELECTOR -->
+<div class="lang-overlay" id="langOverlay">
+  <div class="lang-overlay-logo">Marhaba Club Hotel</div>
+  <div class="divider-gold" style="opacity:1; margin: 1rem auto;"></div>
+  <h2>Choose your language</h2>
+  <p>Sélectionnez votre langue · Wybierz język · Sprache wählen · اختر لغتك</p>
+  <div class="lang-grid">
+    <button class="lang-btn" onclick="setLang('en')">
+      <span class="lang-flag">🇬🇧</span>
+      <span class="lang-name">English</span>
+      <span class="lang-native">English</span>
+    </button>
+    <button class="lang-btn" onclick="setLang('fr')">
+      <span class="lang-flag">🇫🇷</span>
+      <span class="lang-name">Français</span>
+      <span class="lang-native">French</span>
+    </button>
+    <button class="lang-btn" onclick="setLang('pl')">
+      <span class="lang-flag">🇵🇱</span>
+      <span class="lang-name">Polski</span>
+      <span class="lang-native">Polish</span>
+    </button>
+    <button class="lang-btn" onclick="setLang('de')">
+      <span class="lang-flag">🇩🇪</span>
+      <span class="lang-name">Deutsch</span>
+      <span class="lang-native">German</span>
+    </button>
+    <button class="lang-btn" onclick="setLang('ar')">
+      <span class="lang-flag">🇹🇳</span>
+      <span class="lang-name">العربية</span>
+      <span class="lang-native">Arabic</span>
+    </button>
+  </div>
+</div>
+
+<!-- NAME MODAL -->
+<div class="modal-overlay" id="modal" style="display:none;">
+  <div class="modal">
+    <div class="modal-gold-line"></div>
+    <h2 id="modalTitle">Welcome, Dear Guest</h2>
+    <p id="modalSub">Let us personalize your experience.<br>May we know your name?</p>
+    <input type="text" id="guestNameInput" placeholder="Your first name" maxlength="40" />
+    <button class="btn-gold" id="modalBtn" onclick="enterPortal()">Enter Your Portal</button>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-logo">Marhaba Club Hotel</div>
+  <ul class="nav-links">
+    <li><a href="#welcome" id="navWelcome">Welcome</a></li>
+    <li><a href="#services" id="navServices">Services</a></li>
+    <li><a href="#essentials" id="navEssentials">Essentials</a></li>
+    <li><a href="#faq" id="navFaq">FAQ</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta" id="navCta">Ask Me Anything</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-eyebrow">✦ Marhaba Club Hotel · VIP Guest Portal</div>
+  <h1 class="hero-title">Welcome,<br><em id="heroName">Valued Guest</em></h1>
+  <p class="hero-subtitle" id="heroSubtitle">Your home away from home. We are so glad you're here.</p>
+  <div class="divider-gold"></div>
+  <p class="guest-name-display">Marhaba Club Hotel · Guest Experience Portal</p>
+  <div class="scroll-hint" onclick="document.getElementById('welcome').scrollIntoView({behavior:'smooth'})">
+    <span id="scrollHintText">Discover</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- WELCOME MESSAGE -->
+<section class="welcome-section" id="welcome">
+  <div class="container">
+    <div class="section-eyebrow reveal" id="secWelcomeEye">A Personal Note</div>
+    <h2 class="section-title reveal" id="secWelcomeTitle">You are our <em id="secWelcomeEm">priority</em></h2>
+    <p class="section-lead reveal" id="secWelcomeLead">At Marhaba Club Hotel, from the moment you arrived, every detail was prepared with you in mind. This is your personal guide — your key to everything we offer.</p>
+
+    <div class="welcome-grid">
+      <div class="welcome-text-block reveal">
+        <p id="welcomeMessage">"It is our greatest pleasure to welcome you. I am personally here to ensure your stay exceeds every expectation. Please treat this space as your own, and never hesitate to reach out to me directly — day or night."</p>
+      </div>
+      <div class="manager-card reveal">
+        <img src="data:image/jpeg;base64,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" style="width:80px;height:80px;border-radius:50%;object-fit:cover;border:2px solid var(--gold-light);" alt="Amna Afif">
+        <div class="manager-info">
+          <h3 id="managerName">Amna Afif</h3>
+          <p id="managerTitleEl">Guest Experience Manager · Marhaba Club Hotel</p>
+          <p id="managerAvailEl" style="font-size:0.85rem; color:#5A5750; margin-top:1rem; line-height:1.6;">Available 24/7 — your comfort is always my priority.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services-section" id="services">
+  <div class="container">
+    <div class="section-eyebrow reveal" id="secServicesEye">What We Offer</div>
+    <h2 class="section-title reveal" id="secServicesTitle">Services &amp; <em>Facilities</em></h2>
+    <p class="section-lead reveal" id="secServicesLead">Everything included in your All Inclusive program, designed for your comfort.</p>
+
+    <div class="services-grid reveal">
+      <div class="service-card">
+        <span class="service-icon">🍽️</span>
+        <h3>Restaurant</h3>
+        <p>Enjoy breakfast, lunch, snacks, and dinner at our main restaurant. Snacks are served at the pool bar throughout the afternoon.</p>
+        <span class="service-tag">Breakfast 07:00–10:00 · Lunch 12:30–14:30 · Dinner 18:30–21:00</span>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">🍹</span>
+        <h3>Bars & Drinks</h3>
+        <p>Sip and unwind at our Lobby Bar, Pool Bar, or Beach Bar. All drinks are included in your All Inclusive program.</p>
+        <span class="service-tag">Lobby Bar 09:00–00:00 · Pool & Beach Bar 10:00–17:00</span>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">🏊</span>
+        <h3>Indoor Swimming Pool</h3>
+        <p>Take a refreshing dip in our indoor swimming pool, open daily and exclusively available to our guests.</p>
+        <span class="service-tag">Open 09:00 – 17:00</span>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">💆</span>
+        <h3>SPA</h3>
+        <p>Treat yourself to a moment of pure relaxation at our spa. A variety of treatments are available at an extra charge.</p>
+        <span class="service-tag">Open 09:00 – 17:00 · Extra Charge</span>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">🎭</span>
+        <h3>Entertainment Program</h3>
+        <p>Daily activities and evening show programs are updated every day. Check the notice board at the restaurant entrance to discover what's on.</p>
+        <span class="service-tag">Check Notice Board Daily</span>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">🏖️</span>
+        <h3>Beach & Sunbeds</h3>
+        <p>Relax on our beautiful beach. Please be mindful that reserving sunbeds is not permitted, to ensure comfort for all guests.</p>
+        <span class="service-tag">* Do Not Reserve Sunbeds *</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ESSENTIALS -->
+<section class="info-section" id="essentials">
+  <div class="container">
+    <div class="section-eyebrow reveal" id="secEssEye">Know Before You Need It</div>
+    <h2 class="section-title reveal" id="secEssTitle">Your <em>Essentials</em></h2>
+    <p class="section-lead reveal" id="secEssLead">All the key information, at your fingertips.</p>
+
+    <div class="info-grid reveal">
+      <div class="info-card">
+        <h4>🕐 Check-in & Out</h4>
+        <ul class="info-list">
+          <li><span class="label">Check-in</span><span>From 14:00</span></li>
+          <li><span class="label">Check-out</span><span>Until 12:00</span></li>
+          <li><span class="label">Late Check-out</span><span>+200 DT (subject to availability)</span></li>
+          <li><span class="label">Reception</span><span>24 / 7</span></li>
+        </ul>
+      </div>
+      <div class="info-card">
+        <h4>📞 Contact Us</h4>
+        <ul class="info-list">
+          <li><span class="label">Amna (Guest Experience)</span><span>+216 53 378 245</span></li>
+          <li><span class="label">Email</span><span>marketing@marhaba-resort.com</span></li>
+        </ul>
+      </div>
+      <div class="info-card">
+        <h4>🌿 Useful Info</h4>
+        <ul class="info-list">
+          <li><span class="label">Wi-Fi Code</span><span>mymarhabaclub</span></li>
+          <li><span class="label">Minibar</span><span>✅ Complimentary</span></li>
+          <li><span class="label">Safe</span><span>✅ Complimentary</span></li>
+          <li><span class="label">Beach Towel Deposit</span><span>50 DT</span></li>
+          <li><span class="label">Kettle (per day)</span><span>5 DT</span></li>
+          <li><span class="label">Iron Deposit</span><span>40 DT (1-hour use)</span></li>
+        </ul>
+      </div>
+      <div class="info-card">
+        <h4>🍽️ Dining Hours</h4>
+        <ul class="info-list">
+          <li><span class="label">Breakfast</span><span>07:00 – 10:00</span></li>
+          <li><span class="label">Lunch</span><span>12:30 – 14:30</span></li>
+          <li><span class="label">Snacks (Pool Bar)</span><span>11:00 – 17:00</span></li>
+          <li><span class="label">Dinner</span><span>18:30 – 21:00</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="ask-section" id="faq">
+  <div class="container">
+    <div class="section-eyebrow reveal" id="secFaqEye">Frequently Asked</div>
+    <h2 class="section-title reveal" id="secFaqTitle">Quick <em>Answers</em></h2>
+    <p class="section-lead reveal" id="secFaqLead">The questions we hear most often — answered instantly for you.</p>
+
+    <div class="faq-list reveal" id="faqList">
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          <span id="faq1q">Can I request a late check-out?</span>
+          <span class="faq-arrow">+</span>
+        </button>
+        <div class="faq-answer"><p id="faq1a">Late check-out is available for an extra charge of 200 DT, subject to availability. Please contact me directly and I will do my best to arrange it for you.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          <span id="faq2q">Is there a dress code for the restaurant?</span>
+          <span class="faq-arrow">+</span>
+        </button>
+        <div class="faq-answer"><p id="faq2a">Smart casual attire is appreciated in our dining venues after 7:00 PM. Our team is happy to advise on any specific events or experiences.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          <span id="faq3q">What is the Wi-Fi code?</span>
+          <span class="faq-arrow">+</span>
+        </button>
+        <div class="faq-answer"><p id="faq3a">The Wi-Fi code is mymarhabaclub — connect and enjoy! If you have any connectivity issues, don't hesitate to reach out.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          <span id="faq4q">Does my room have a minibar and a safe?</span>
+          <span class="faq-arrow">+</span>
+        </button>
+        <div class="faq-answer"><p id="faq4a">Yes! Every room at Marhaba Club Hotel includes a complimentary minibar and a safe, both available for your use at no extra charge.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          <span id="faq5q">What is the beach towel policy?</span>
+          <span class="faq-arrow">+</span>
+        </button>
+        <div class="faq-answer"><p id="faq5a">A beach towel is available with a 50 DT deposit. Please note there is no refund in case of loss of the towel or towel card. Also, please be mindful not to reserve sunbeds to ensure comfort for all guests.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT / ASK ME -->
+<section class="contact-section" id="contact">
+  <div class="container">
+    <div class="section-eyebrow reveal" style="text-align:center" id="secContactEye">I'm Here For You</div>
+    <h2 class="section-title reveal" style="text-align:center" id="secContactTitle">Ask Me <em>Anything</em></h2>
+    <p class="section-lead reveal" style="text-align:center; margin:0 auto 3rem;" id="secContactLead">No request is too small. No question is trivial. I am personally here to make your stay extraordinary.</p>
+
+    <div style="display:flex; justify-content:center;" class="reveal">
+      <div class="contact-card">
+        <div style="text-align:center;">
+          <img src="data:image/jpeg;base64,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" style="width:80px;height:80px;border-radius:50%;object-fit:cover;border:2px solid var(--gold-light);margin:0 auto 1rem;display:block;" alt="Amna Afif">
+          <p style="font-family:'Cormorant Garamond',serif; font-size:1.1rem; font-style:italic; color:var(--gold-light);" id="contactName">Amna Afif — Guest Experience Manager</p>
+          <p style="font-size:0.75rem; color:var(--muted); margin-top:0.3rem;" id="respondMin">Responds within minutes</p>
+        </div>
+
+        <div class="chat-input-wrap" style="width:100%">
+          <textarea class="chat-input" id="chatInput" placeholder="Type your question or request here...&#10;e.g. Can I get a restaurant recommendation?" rows="4"></textarea>
+          <button class="chat-send" onclick="sendMessage()" title="Send">➤</button>
+        </div>
+
+        <div class="chat-response" id="chatResponse"></div>
+
+        <div class="contact-options">
+          <a class="contact-pill" id="btnCallNow" href="tel:+21653378245">📞 Call Now</a>
+          <a class="contact-pill" id="btnWhatsapp" href="https://wa.me/21653378245" target="_blank">💬 WhatsApp</a>
+          <a class="contact-pill" id="btnEmail" href="mailto:marketing@marhaba-resort.com">✉️ Email</a>
+          <div class="contact-pill" id="btnQuickReq" onclick="showQuickActions()">⚡ Quick Request</div>
+        </div>
+
+        <div id="quickActions" style="display:none; width:100%; display:none;">
+          <p style="font-size:0.75rem; color:var(--muted); margin-bottom:1rem; letter-spacing:0.1em; text-transform:uppercase;" id="tapSendLabel">Tap to send instantly</p>
+          <div style="display:flex; flex-wrap:wrap; gap:0.5rem;">
+            <button class="contact-pill" id="qTowels" onclick="quickSend('I would like extra towels please.')">🛁 Extra Towels</button>
+            <button class="contact-pill" id="qTaxi" onclick="quickSend('Please arrange a taxi for me.')">🚕 Taxi</button>
+            <button class="contact-pill" id="qRS" onclick="quickSend('I would like to order room service.')">🍽️ Room Service</button>
+            <button class="contact-pill" id="qWake" onclick="quickSend('I need a wake-up call tomorrow.')">⏰ Wake-up Call</button>
+            <button class="contact-pill" id="qRest" onclick="quickSend('Can you recommend local restaurants?')">📍 Restaurants</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- REVIEW SECTION -->
+<section class="review-section" id="reviews">
+  <div class="container">
+    <div class="section-eyebrow reveal" id="secReviewEye">Share Your Experience</div>
+    <h2 class="reveal" id="secReviewTitle">We'd love your <em>feedback</em></h2>
+    <p class="reveal" id="secReviewLead" style="max-width:520px; margin:0 auto 2.5rem;">Your opinion means the world to us and to future guests. If you enjoyed your stay, please take a moment to share your experience.</p>
+    <div class="review-grid reveal">
+      <a class="review-card" href="https://www.booking.com/Share-ZcS9MK" target="_blank" rel="noopener">
+        <span class="review-icon">🏨</span>
+        <div class="review-label">
+          <span class="review-name">Booking.com</span>
+          <span class="review-action" id="reviewBooking">Rate us on Booking.com</span>
+        </div>
+      </a>
+      <a class="review-card" href="https://www.tripadvisor.com/Hotel_Review-g295401-d316770-Reviews-Hotel_Marhaba_Club-Sousse_Sousse_Governorate.html" target="_blank" rel="noopener">
+        <span class="review-icon">🦉</span>
+        <div class="review-label">
+          <span class="review-name">TripAdvisor</span>
+          <span class="review-action" id="reviewTrip">Review on TripAdvisor</span>
+        </div>
+      </a>
+      <a class="review-card" href="https://www.holidaycheck.de/hi/hotel-marhaba-club/846c06ab-11ec-379f-afc9-474f10fcee0b" target="_blank" rel="noopener">
+        <span class="review-icon">☀️</span>
+        <div class="review-label">
+          <span class="review-name">HolidayCheck</span>
+          <span class="review-action" id="reviewHoliday">Review on HolidayCheck</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p id="footerText">✦ &nbsp; Marhaba Club Hotel · Crafted with care by Amna Afif, Guest Experience Manager &nbsp; ✦</p>
+</footer>
+
+<script>
+
+  // ── TRANSLATIONS ──
+  const T = {
+    en: {
+      hotelTagline: "Your home away from home. We are so glad you're here.",
+      modalTitle: "Welcome, Dear Guest",
+      modalSub: "Let us personalize your experience.<br>May we know your name?",
+      modalBtn: "Enter Your Portal",
+      navWelcome: "Welcome", navServices: "Services", navEssentials: "Essentials", navFaq: "FAQ",
+      navCta: "Ask Me Anything",
+      secWelcomeEye: "A Personal Note", secWelcomeTitle: "You are our", secWelcomeEm: "priority",
+      secWelcomeLead: "At Marhaba Club Hotel, from the moment you arrived, every detail was prepared with you in mind. This is your personal guide — your key to everything we offer.",
+      welcomeMsg: (n) => `"Hello and welcome to Marhaba Club Hotel, ${n}! 🌟 I'm Amna, your personal Guest Experience Manager, and I am truly delighted to have you with us. My team and I are here to make your stay feel special, comfortable, and completely stress-free. Please don't hesitate to reach out to me for absolutely anything — big or small, I'm always just a message away!"`,
+      managerTitle: "Guest Experience Manager · Marhaba Club Hotel",
+      managerAvail: "Available 24/7 — your comfort is always my priority.",
+      secServicesEye: "What We Offer", secServicesTitle: "Services &", secServicesEm: "Facilities",
+      secServicesLead: "Everything included in your All Inclusive program, designed for your comfort.",
+      secEssEye: "Know Before You Need It", secEssTitle: "Your", secEssEm: "Essentials",
+      secEssLead: "All the key information, at your fingertips.",
+      secFaqEye: "Frequently Asked", secFaqTitle: "Quick", secFaqEm: "Answers",
+      secFaqLead: "The questions we hear most often — answered instantly for you.",
+      secContactEye: "I'm Here For You", secContactTitle: "Ask Me", secContactEm: "Anything",
+      secContactLead: "No request is too small. No question is trivial. I am personally here to make your stay extraordinary.",
+      chatPlaceholder: "Type your question or request here...\ne.g. Can I get a restaurant recommendation?",
+      secReviewEye: "Share Your Experience", secReviewTitle: "We'd love your", secReviewEm: "feedback",
+      secReviewLead: "Your opinion means the world to us and to future guests. If you enjoyed your stay, please take a moment to share your experience.",
+      callNow: "📞 Call Now", whatsapp: "💬 WhatsApp", email: "✉️ Email", quickReq: "⚡ Quick Request",
+      quickTowels: "🛁 Extra Towels", quickTaxi: "🚕 Taxi", quickRS: "🍽️ Room Service", quickWake: "⏰ Wake-up Call", quickRest: "📍 Restaurants",
+      tapSend: "Tap to send instantly",
+      faq1q: "What is included in the All Inclusive program?",
+      faq1a: "Your All Inclusive program includes all meals at the main restaurant (breakfast, lunch & dinner), snacks at the pool bar, and drinks at the Lobby Bar, Pool Bar, and Beach Bar. The indoor pool is also included.",
+      faq2q: "Can I request a late check-out?",
+      faq2a: "Late check-out is available for an extra charge of 200 DT, subject to availability. Please contact me directly and I will do my best to arrange it for you.",
+      faq3q: "What is the Wi-Fi code?",
+      faq3a: "The Wi-Fi code is mymarhabaclub — connect and enjoy! If you have any connectivity issues, don't hesitate to reach out.",
+      faq4q: "Does my room have a minibar and a safe?",
+      faq4a: "Yes! Every room at Marhaba Club Hotel includes a complimentary minibar and a safe, both available for your use at no extra charge.",
+      faq5q: "What is the beach towel policy?",
+      faq5a: "A beach towel is available with a 50 DT deposit. Please note there is no refund in case of loss of the towel or towel card. Also, please be mindful not to reserve sunbeds to ensure comfort for all guests.",
+      scrollDiscover: "Discover",
+      footerText: "Marhaba Club Hotel · Crafted with care by Amna Afif, Guest Experience Manager",
+      reviewBooking: "Rate us on Booking.com",
+      reviewTrip: "Review on TripAdvisor",
+      reviewHoliday: "Review on HolidayCheck",
+      respondMin: "Responds within minutes",
+      aiSystem: (n) => `You are Amna Afif, the warm and friendly Guest Experience Manager at Marhaba Club Hotel, a four-star hotel in Sousse, Tunisia. You are speaking directly to ${n || 'a valued guest'}. Your tone is warm, genuine, helpful, and personal. Keep responses concise (2-4 sentences), solution-focused, and always end with an invitation for them to ask more. Never use bullet points. Sign off occasionally with "— Amna 😊". Wi-Fi: mymarhabaclub. Check-in 14:00, check-out 12:00. Late check-out 200 DT. All rooms have complimentary minibar and safe. Contact: +216 53 378 245, marketing@marhaba-resort.com.`,
+    },
+    fr: {
+      hotelTagline: "Votre maison loin de chez vous. Nous sommes ravis de vous accueillir.",
+      modalTitle: "Bienvenue, Cher Hôte",
+      modalSub: "Permettez-nous de personnaliser votre séjour.<br>Puis-je connaître votre prénom ?",
+      modalBtn: "Accéder à votre portail",
+      navWelcome: "Bienvenue", navServices: "Services", navEssentials: "Infos pratiques", navFaq: "FAQ",
+      navCta: "Posez-moi une question",
+      secWelcomeEye: "Un mot personnel", secWelcomeTitle: "Vous êtes notre", secWelcomeEm: "priorité",
+      secWelcomeLead: "Au Marhaba Club Hotel, dès votre arrivée, chaque détail a été préparé pour vous. Ce guide est votre clé pour tout ce que nous offrons.",
+      welcomeMsg: (n) => `"Bonjour et bienvenue au Marhaba Club Hotel, ${n} ! 🌟 Je suis Amna, votre responsable de l'expérience client, et je suis ravie de vous accueillir. Mon équipe et moi sommes là pour rendre votre séjour agréable et inoubliable. N'hésitez pas à me contacter pour quoi que ce soit — je suis toujours disponible pour vous !"`,
+      managerTitle: "Responsable Expérience Client · Marhaba Club Hotel",
+      managerAvail: "Disponible 24h/24 — votre confort est ma priorité.",
+      secServicesEye: "Ce que nous offrons", secServicesTitle: "Services &", secServicesEm: "Équipements",
+      secServicesLead: "Tout est inclus dans votre programme All Inclusive, conçu pour votre confort.",
+      secEssEye: "Informations essentielles", secEssTitle: "Vos", secEssEm: "Essentiels",
+      secEssLead: "Toutes les informations clés à portée de main.",
+      secFaqEye: "Questions fréquentes", secFaqTitle: "Réponses", secFaqEm: "rapides",
+      secFaqLead: "Les questions que nous recevons le plus souvent — répondues instantanément.",
+      secContactEye: "Je suis là pour vous", secContactTitle: "Posez-moi", secContactEm: "tout",
+      secContactLead: "Aucune demande n'est trop petite. Je suis personnellement là pour rendre votre séjour extraordinaire.",
+      chatPlaceholder: "Écrivez votre question ou demande ici...\nEx : Pouvez-vous me recommander un restaurant ?",
+      secReviewEye: "Partagez votre expérience", secReviewTitle: "Votre avis nous", secReviewEm: "tient à cœur",
+      secReviewLead: "Votre opinion compte énormément pour nous. Si vous avez apprécié votre séjour, partagez votre expérience.",
+      callNow: "📞 Appeler", whatsapp: "💬 WhatsApp", email: "✉️ Email", quickReq: "⚡ Demande rapide",
+      quickTowels: "🛁 Serviettes supplémentaires", quickTaxi: "🚕 Taxi", quickRS: "🍽️ Room Service", quickWake: "⏰ Réveil", quickRest: "📍 Restaurants",
+      tapSend: "Appuyez pour envoyer",
+      faq1q: "Qu'est-ce qui est inclus dans le programme All Inclusive ?",
+      faq1a: "Votre programme All Inclusive comprend tous les repas au restaurant principal (petit-déjeuner, déjeuner & dîner), les snacks au bar de la piscine, et les boissons au Lobby Bar, Pool Bar et Beach Bar. La piscine intérieure est également incluse.",
+      faq2q: "Puis-je demander un départ tardif ?",
+      faq2a: "Le départ tardif est disponible pour un supplément de 200 DT, sous réserve de disponibilité. Contactez-moi directement et je ferai de mon mieux pour vous l'arranger.",
+      faq3q: "Quel est le code Wi-Fi ?",
+      faq3a: "Le code Wi-Fi est mymarhabaclub — connectez-vous et profitez ! En cas de problème de connexion, n'hésitez pas à me contacter.",
+      faq4q: "Ma chambre dispose-t-elle d'un minibar et d'un coffre-fort ?",
+      faq4a: "Oui ! Chaque chambre du Marhaba Club Hotel dispose d'un minibar offert et d'un coffre-fort, tous deux disponibles sans frais supplémentaires.",
+      faq5q: "Quelle est la politique concernant les serviettes de plage ?",
+      faq5a: "Une serviette de plage est disponible avec un dépôt de 50 DT. Aucun remboursement en cas de perte de la serviette ou de la carte. Merci de ne pas réserver les transats.",
+      scrollDiscover: "Découvrir",
+      footerText: "Marhaba Club Hotel · Créé avec soin par Amna Afif, Responsable Expérience Client",
+      reviewBooking: "Notez-nous sur Booking.com",
+      reviewTrip: "Avis sur TripAdvisor",
+      reviewHoliday: "Avis sur HolidayCheck",
+      respondMin: "Répond en quelques minutes",
+      aiSystem: (n) => `Tu es Amna Afif, la responsable chaleureuse de l'expérience client au Marhaba Club Hotel, un hôtel quatre étoiles à Sousse, Tunisie. Tu parles directement à ${n || 'un client'}. Ton ton est chaleureux, authentique et personnel. Réponds de manière concise (2-4 phrases), orientée solution. Ne jamais utiliser de listes à puces. Signe parfois avec "— Amna 😊". Wi-Fi : mymarhabaclub. Check-in 14h, check-out 12h. Départ tardif 200 DT. Toutes les chambres ont un minibar et un coffre-fort offerts. Contact : +216 53 378 245, marketing@marhaba-resort.com.`,
+    },
+    pl: {
+      hotelTagline: "Twój drugi dom. Cieszymy się, że jesteś z nami.",
+      modalTitle: "Witamy, Drogi Gościu",
+      modalSub: "Pozwól nam spersonalizować Twój pobyt.<br>Jak masz na imię?",
+      modalBtn: "Wejdź do swojego portalu",
+      navWelcome: "Witamy", navServices: "Usługi", navEssentials: "Informacje", navFaq: "FAQ",
+      navCta: "Zapytaj mnie o cokolwiek",
+      secWelcomeEye: "Osobista wiadomość", secWelcomeTitle: "Jesteś naszym", secWelcomeEm: "priorytetem",
+      secWelcomeLead: "W Marhaba Club Hotel każdy szczegół został przygotowany z myślą o Tobie. To Twój osobisty przewodnik po wszystkim, co oferujemy.",
+      welcomeMsg: (n) => `"Witaj w Marhaba Club Hotel, ${n}! 🌟 Jestem Amna, Twój osobisty menadżer ds. obsługi gości. Mój zespół i ja jesteśmy tutaj, aby Twój pobyt był wyjątkowy i komfortowy. Nie wahaj się skontaktować ze mną w każdej sprawie — zawsze jestem do Twojej dyspozycji!"`,
+      managerTitle: "Menadżer ds. Obsługi Gości · Marhaba Club Hotel",
+      managerAvail: "Dostępna 24/7 — Twój komfort jest moim priorytetem.",
+      secServicesEye: "Co oferujemy", secServicesTitle: "Usługi i", secServicesEm: "udogodnienia",
+      secServicesLead: "Wszystko wliczone w Twój program All Inclusive, zaprojektowany dla Twojego komfortu.",
+      secEssEye: "Ważne informacje", secEssTitle: "Twoje", secEssEm: "essentials",
+      secEssLead: "Wszystkie kluczowe informacje w zasięgu ręki.",
+      secFaqEye: "Często zadawane pytania", secFaqTitle: "Szybkie", secFaqEm: "odpowiedzi",
+      secFaqLead: "Najczęściej zadawane pytania — natychmiast odpowiedziane.",
+      secContactEye: "Jestem do Twojej dyspozycji", secContactTitle: "Zapytaj mnie", secContactEm: "o cokolwiek",
+      secContactLead: "Żadna prośba nie jest zbyt mała. Jestem tutaj, aby Twój pobyt był wyjątkowy.",
+      chatPlaceholder: "Wpisz swoje pytanie lub prośbę...\nNp.: Czy możesz polecić restaurację?",
+      secReviewEye: "Podziel się opinią", secReviewTitle: "Zależy nam na Twojej", secReviewEm: "opinii",
+      secReviewLead: "Twoja opinia jest dla nas bardzo ważna. Jeśli podobał Ci się pobyt, podziel się swoją recenzją.",
+      callNow: "📞 Zadzwoń", whatsapp: "💬 WhatsApp", email: "✉️ Email", quickReq: "⚡ Szybka prośba",
+      quickTowels: "🛁 Dodatkowe ręczniki", quickTaxi: "🚕 Taxi", quickRS: "🍽️ Room Service", quickWake: "⏰ Budzenie", quickRest: "📍 Restauracje",
+      tapSend: "Dotknij, aby wysłać",
+      faq1q: "Co jest wliczone w program All Inclusive?",
+      faq1a: "Program All Inclusive obejmuje wszystkie posiłki w głównej restauracji (śniadanie, obiad i kolację), przekąski przy barze przy basenie oraz napoje w Lobby Bar, Pool Bar i Beach Bar. Wliczony jest również kryty basen.",
+      faq2q: "Czy mogę prosić o późniejszy wymeldowanie?",
+      faq2a: "Późne wymeldowanie jest dostępne za dodatkową opłatą 200 DT, w zależności od dostępności. Skontaktuj się ze mną bezpośrednio, a zrobię wszystko co możliwe.",
+      faq3q: "Jaki jest kod Wi-Fi?",
+      faq3a: "Kod Wi-Fi to mymarhabaclub — połącz się i korzystaj! W razie problemów z połączeniem skontaktuj się ze mną.",
+      faq4q: "Czy pokój ma minibar i sejf?",
+      faq4a: "Tak! Każdy pokój w Marhaba Club Hotel posiada bezpłatny minibar i sejf — obydwa dostępne bez dodatkowych opłat.",
+      faq5q: "Jaka jest polityka dotycząca ręczników plażowych?",
+      faq5a: "Ręcznik plażowy dostępny jest za kaucją 50 DT. Prosimy pamiętać, że nie ma zwrotu kaucji w przypadku zgubienia ręcznika lub karty. Prosimy też nie rezerwować leżaków.",
+      scrollDiscover: "Odkryj",
+      footerText: "Marhaba Club Hotel · Stworzone z troską przez Amnę Afif, Menadżer ds. Obsługi Gości",
+      reviewBooking: "Oceń nas na Booking.com",
+      reviewTrip: "Recenzja na TripAdvisor",
+      reviewHoliday: "Recenzja na HolidayCheck",
+      respondMin: "Odpowiada w ciągu kilku minut",
+      aiSystem: (n) => `Jesteś Amną Afif, ciepłą i przyjazną menadżer ds. obsługi gości w Marhaba Club Hotel, czterogwiazdkowym hotelu w Susie, Tunezja. Rozmawiasz bezpośrednio z ${n || 'gościem'}. Twój ton jest ciepły, autentyczny i osobisty. Odpowiadaj zwięźle (2-4 zdania). Nie używaj punktorów. Czasem podpisuj się "— Amna 😊". Wi-Fi: mymarhabaclub. Check-in 14:00, check-out 12:00. Późne wymeldowanie 200 DT. Wszystkie pokoje mają bezpłatny minibar i sejf. Kontakt: +216 53 378 245, marketing@marhaba-resort.com.`,
+    },
+    de: {
+      hotelTagline: "Ihr zweites Zuhause. Wir freuen uns, Sie bei uns zu haben.",
+      modalTitle: "Willkommen, lieber Gast",
+      modalSub: "Lassen Sie uns Ihren Aufenthalt personalisieren.<br>Darf ich Ihren Namen erfahren?",
+      modalBtn: "Ihr Portal betreten",
+      navWelcome: "Willkommen", navServices: "Leistungen", navEssentials: "Informationen", navFaq: "FAQ",
+      navCta: "Fragen Sie mich alles",
+      secWelcomeEye: "Eine persönliche Nachricht", secWelcomeTitle: "Sie sind unsere", secWelcomeEm: "Priorität",
+      secWelcomeLead: "Im Marhaba Club Hotel wurde jedes Detail von dem Moment an, als Sie ankamen, für Sie vorbereitet. Dies ist Ihr persönlicher Leitfaden für alles, was wir anbieten.",
+      welcomeMsg: (n) => `"Hallo und herzlich willkommen im Marhaba Club Hotel, ${n}! 🌟 Ich bin Amna, Ihre persönliche Guest Experience Managerin, und ich freue mich sehr, Sie bei uns zu haben. Mein Team und ich sind für Sie da, um Ihren Aufenthalt besonders und angenehm zu gestalten. Zögern Sie nicht, mich jederzeit zu kontaktieren — ich bin immer für Sie da!"`,
+      managerTitle: "Guest Experience Managerin · Marhaba Club Hotel",
+      managerAvail: "Rund um die Uhr verfügbar — Ihr Komfort ist meine Priorität.",
+      secServicesEye: "Was wir anbieten", secServicesTitle: "Leistungen &", secServicesEm: "Einrichtungen",
+      secServicesLead: "Alles inklusive in Ihrem All Inclusive Programm, gestaltet für Ihren Komfort.",
+      secEssEye: "Wichtige Informationen", secEssTitle: "Ihre", secEssEm: "Essentials",
+      secEssLead: "Alle wichtigen Informationen immer griffbereit.",
+      secFaqEye: "Häufig gestellte Fragen", secFaqTitle: "Schnelle", secFaqEm: "Antworten",
+      secFaqLead: "Die am häufigsten gestellten Fragen — sofort beantwortet.",
+      secContactEye: "Ich bin für Sie da", secContactTitle: "Fragen Sie mich", secContactEm: "alles",
+      secContactLead: "Keine Anfrage ist zu klein. Ich bin persönlich hier, um Ihren Aufenthalt außergewöhnlich zu machen.",
+      chatPlaceholder: "Schreiben Sie Ihre Frage oder Anfrage hier...\nZ.B.: Können Sie ein Restaurant empfehlen?",
+      secReviewEye: "Teilen Sie Ihre Erfahrung", secReviewTitle: "Wir freuen uns über Ihr", secReviewEm: "Feedback",
+      secReviewLead: "Ihre Meinung ist uns sehr wichtig. Wenn Ihnen Ihr Aufenthalt gefallen hat, teilen Sie bitte Ihre Erfahrung.",
+      callNow: "📞 Anrufen", whatsapp: "💬 WhatsApp", email: "✉️ E-Mail", quickReq: "⚡ Schnellanfrage",
+      quickTowels: "🛁 Zusätzliche Handtücher", quickTaxi: "🚕 Taxi", quickRS: "🍽️ Zimmerservice", quickWake: "⏰ Weckruf", quickRest: "📍 Restaurants",
+      tapSend: "Zum Senden tippen",
+      faq1q: "Was ist im All Inclusive Programm enthalten?",
+      faq1a: "Ihr All Inclusive Programm umfasst alle Mahlzeiten im Hauptrestaurant (Frühstück, Mittagessen & Abendessen), Snacks an der Poolbar sowie Getränke in der Lobby Bar, Pool Bar und Beach Bar. Das Hallenbad ist ebenfalls inklusive.",
+      faq2q: "Kann ich einen späten Check-out anfragen?",
+      faq2a: "Ein später Check-out ist gegen einen Aufpreis von 200 DT möglich, abhängig von der Verfügbarkeit. Kontaktieren Sie mich direkt und ich werde mein Bestes tun, es für Sie zu arrangieren.",
+      faq3q: "Was ist der WLAN-Code?",
+      faq3a: "Der WLAN-Code lautet mymarhabaclub — verbinden Sie sich und genießen Sie! Bei Verbindungsproblemen stehe ich gerne zur Verfügung.",
+      faq4q: "Hat mein Zimmer eine Minibar und einen Safe?",
+      faq4a: "Ja! Jedes Zimmer im Marhaba Club Hotel verfügt über eine kostenlose Minibar und einen Safe — beide ohne zusätzliche Kosten.",
+      faq5q: "Was gilt für Strandtücher?",
+      faq5a: "Ein Strandtuch ist gegen eine Kaution von 50 DT erhältlich. Bei Verlust des Tuchs oder der Karte gibt es keine Rückerstattung. Bitte reservieren Sie keine Liegestühle.",
+      scrollDiscover: "Entdecken",
+      footerText: "Marhaba Club Hotel · Mit Sorgfalt erstellt von Amna Afif, Guest Experience Managerin",
+      reviewBooking: "Bewerten Sie uns auf Booking.com",
+      reviewTrip: "Bewertung auf TripAdvisor",
+      reviewHoliday: "Bewertung auf HolidayCheck",
+      respondMin: "Antwortet innerhalb von Minuten",
+      aiSystem: (n) => `Sie sind Amna Afif, die herzliche Guest Experience Managerin im Marhaba Club Hotel, einem Vier-Sterne-Hotel in Sousse, Tunesien. Sie sprechen direkt mit ${n || 'einem Gast'}. Ihr Ton ist warm, authentisch und persönlich. Halten Sie Antworten kurz (2-4 Sätze). Keine Aufzählungszeichen. Unterschreiben Sie gelegentlich mit "— Amna 😊". WLAN: mymarhabaclub. Check-in 14:00, Check-out 12:00. Später Check-out 200 DT. Alle Zimmer haben kostenlose Minibar und Safe. Kontakt: +216 53 378 245, marketing@marhaba-resort.com.`,
+    },
+    ar: {
+      hotelTagline: "بيتكم الثاني. يسعدنا وجودكم معنا.",
+      modalTitle: "أهلاً وسهلاً بكم",
+      modalSub: "دعونا نخصص تجربتكم.<br>ما اسمكم الكريم؟",
+      modalBtn: "ادخل إلى بوابتك",
+      navWelcome: "مرحباً", navServices: "الخدمات", navEssentials: "معلومات", navFaq: "أسئلة",
+      navCta: "اسألني أي شيء",
+      secWelcomeEye: "رسالة شخصية", secWelcomeTitle: "أنتم", secWelcomeEm: "أولويتنا",
+      secWelcomeLead: "في مرحبا كلوب هوتيل، منذ لحظة وصولكم، أُعدّ كل تفصيل من أجلكم. هذا دليلكم الشخصي لكل ما نقدمه.",
+      welcomeMsg: (n) => `"مرحباً بكم في مرحبا كلوب هوتيل، ${n}! 🌟 أنا أمنة، مسؤولة تجربة النزلاء، وأنا سعيدة جداً بوجودكم معنا. فريقي وأنا هنا لجعل إقامتكم مميزة ومريحة. لا تترددوا في التواصل معي في أي وقت — أنا دائماً في خدمتكم!"`,
+      managerTitle: "مسؤولة تجربة النزلاء · مرحبا كلوب هوتيل",
+      managerAvail: "متاحة على مدار الساعة — راحتكم هي أولويتي.",
+      secServicesEye: "ما نقدمه", secServicesTitle: "الخدمات و", secServicesEm: "المرافق",
+      secServicesLead: "كل شيء مشمول في برنامج الكل شامل، مصمم لراحتكم.",
+      secEssEye: "معلومات مهمة", secEssTitle: "المعلومات", secEssEm: "الأساسية",
+      secEssLead: "جميع المعلومات الرئيسية في متناول يدكم.",
+      secFaqEye: "الأسئلة الشائعة", secFaqTitle: "إجابات", secFaqEm: "سريعة",
+      secFaqLead: "أكثر الأسئلة شيوعاً — مُجاب عنها فوراً.",
+      secContactEye: "أنا هنا من أجلكم", secContactTitle: "اسألوني", secContactEm: "أي شيء",
+      secContactLead: "لا يوجد طلب صغير. أنا شخصياً هنا لجعل إقامتكم استثنائية.",
+      chatPlaceholder: "اكتب سؤالك أو طلبك هنا...",
+      secReviewEye: "شاركوا تجربتكم", secReviewTitle: "رأيكم يهمنا", secReviewEm: "كثيراً",
+      secReviewLead: "إذا أعجبتكم إقامتكم، شاركوا تجربتكم لمساعدة النزلاء القادمين.",
+      callNow: "📞 اتصل الآن", whatsapp: "💬 واتساب", email: "✉️ بريد إلكتروني", quickReq: "⚡ طلب سريع",
+      quickTowels: "🛁 مناشف إضافية", quickTaxi: "🚕 تاكسي", quickRS: "🍽️ خدمة الغرف", quickWake: "⏰ إيقاظ", quickRest: "📍 مطاعم",
+      tapSend: "اضغط للإرسال",
+      faq1q: "ماذا يشمل برنامج الكل شامل؟",
+      faq1a: "يشمل برنامجكم جميع الوجبات في المطعم الرئيسي (إفطار وغداء وعشاء)، الوجبات الخفيفة في بار المسبح، والمشروبات في جميع الحانات. كما يشمل المسبح الداخلي.",
+      faq2q: "هل يمكنني طلب تأخير وقت المغادرة؟",
+      faq2a: "المغادرة المتأخرة متاحة مقابل رسم إضافي 200 دينار تونسي، حسب التوفر. تواصلوا معي مباشرة وسأبذل قصارى جهدي.",
+      faq3q: "ما هو كود الواي فاي؟",
+      faq3a: "كود الواي فاي هو mymarhabaclub — تواصل واستمتع! في حال وجود أي مشكلة، لا تترددوا في التواصل.",
+      faq4q: "هل غرفتي بها ميني بار وخزنة أمان؟",
+      faq4a: "نعم! كل غرفة في مرحبا كلوب هوتيل تحتوي على ميني بار مجاني وخزنة أمان، كلاهما متاح مجاناً.",
+      faq5q: "ما هي سياسة المناشف الشاطئية؟",
+      faq5a: "المنشفة الشاطئية متاحة بوديعة 50 دينار. لا يوجد استرداد في حال الفقدان. الرجاء عدم حجز كراسي الشاطئ.",
+      scrollDiscover: "اكتشف",
+      footerText: "مرحبا كلوب هوتيل · صُمّم بعناية من قِبَل أمنة عفيف، مسؤولة تجربة النزلاء",
+      reviewBooking: "قيّمونا على Booking.com",
+      reviewTrip: "مراجعة على TripAdvisor",
+      reviewHoliday: "مراجعة على HolidayCheck",
+      respondMin: "يرد خلال دقائق",
+      aiSystem: (n) => `أنتِ أمنة عفيف، مسؤولة تجربة النزلاء في مرحبا كلوب هوتيل، فندق أربع نجوم في سوسة، تونس. تتحدثين مباشرة مع ${n || 'نزيل كريم'}. أسلوبك دافئ وشخصي. أجيبي بإيجاز (2-4 جمل). لا تستخدمي قوائم. وقّعي أحياناً بـ "— أمنة 😊". واي فاي: mymarhabaclub. تسجيل الوصول 14:00، المغادرة 12:00. تأخير المغادرة 200 دينار. كل الغرف بها ميني بار وخزنة مجانية. التواصل: +216 53 378 245، marketing@marhaba-resort.com.`,
+    },
+  };
+
+  let currentLang = 'en';
+  let guestName = '';
+
+  function setLang(lang) {
+    currentLang = lang;
+    const t = T[lang];
+    document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+    document.documentElement.lang = lang;
+
+    // Modal
+    document.getElementById('modalTitle').innerHTML = t.modalTitle;
+    document.getElementById('modalSub').innerHTML = t.modalSub;
+    document.getElementById('modalBtn').textContent = t.modalBtn;
+    // Hero
+    document.getElementById('heroSubtitle').textContent = t.hotelTagline;
+    document.getElementById('scrollHintText').textContent = t.scrollDiscover;
+    // Nav
+    document.getElementById('navWelcome').textContent = t.navWelcome;
+    document.getElementById('navServices').textContent = t.navServices;
+    document.getElementById('navEssentials').textContent = t.navEssentials;
+    document.getElementById('navFaq').textContent = t.navFaq;
+    document.getElementById('navCta').textContent = t.navCta;
+    // Welcome section
+    document.getElementById('secWelcomeEye').textContent = t.secWelcomeEye;
+    document.getElementById('secWelcomeTitle').innerHTML = t.secWelcomeTitle + ' <em id="secWelcomeEm">' + t.secWelcomeEm + '</em>';
+    document.getElementById('secWelcomeLead').textContent = t.secWelcomeLead;
+    document.getElementById('managerTitleEl').textContent = t.managerTitle;
+    document.getElementById('managerAvailEl').textContent = t.managerAvail;
+    // Services
+    document.getElementById('secServicesEye').textContent = t.secServicesEye;
+    document.getElementById('secServicesTitle').innerHTML = t.secServicesTitle + ' <em>' + t.secServicesEm + '</em>';
+    document.getElementById('secServicesLead').textContent = t.secServicesLead;
+    // Essentials
+    document.getElementById('secEssEye').textContent = t.secEssEye;
+    document.getElementById('secEssTitle').innerHTML = t.secEssTitle + ' <em>' + t.secEssEm + '</em>';
+    document.getElementById('secEssLead').textContent = t.secEssLead;
+    // FAQ
+    document.getElementById('secFaqEye').textContent = t.secFaqEye;
+    document.getElementById('secFaqTitle').innerHTML = t.secFaqTitle + ' <em>' + t.secFaqEm + '</em>';
+    document.getElementById('secFaqLead').textContent = t.secFaqLead;
+    document.getElementById('faq1q').textContent = t.faq1q; document.getElementById('faq1a').textContent = t.faq1a;
+    document.getElementById('faq2q').textContent = t.faq2q; document.getElementById('faq2a').textContent = t.faq2a;
+    document.getElementById('faq3q').textContent = t.faq3q; document.getElementById('faq3a').textContent = t.faq3a;
+    document.getElementById('faq4q').textContent = t.faq4q; document.getElementById('faq4a').textContent = t.faq4a;
+    document.getElementById('faq5q').textContent = t.faq5q; document.getElementById('faq5a').textContent = t.faq5a;
+    // Contact
+    document.getElementById('secContactEye').textContent = t.secContactEye;
+    document.getElementById('secContactTitle').innerHTML = t.secContactTitle + ' <em>' + t.secContactEm + '</em>';
+    document.getElementById('secContactLead').textContent = t.secContactLead;
+    document.getElementById('chatInput').placeholder = t.chatPlaceholder;
+    document.getElementById('respondMin').textContent = t.respondMin;
+    document.getElementById('btnCallNow').textContent = t.callNow;
+    document.getElementById('btnWhatsapp').textContent = t.whatsapp;
+    document.getElementById('btnEmail').textContent = t.email;
+    document.getElementById('btnQuickReq').textContent = t.quickReq;
+    document.getElementById('tapSendLabel').textContent = t.tapSend;
+    document.getElementById('qTowels').textContent = t.quickTowels;
+    document.getElementById('qTaxi').textContent = t.quickTaxi;
+    document.getElementById('qRS').textContent = t.quickRS;
+    document.getElementById('qWake').textContent = t.quickWake;
+    document.getElementById('qRest').textContent = t.quickRest;
+    // Reviews
+    document.getElementById('secReviewEye').textContent = t.secReviewEye;
+    document.getElementById('secReviewTitle').innerHTML = t.secReviewTitle + ' <em>' + t.secReviewEm + '</em>';
+    document.getElementById('secReviewLead').textContent = t.secReviewLead;
+    document.getElementById('reviewBooking').textContent = t.reviewBooking;
+    document.getElementById('reviewTrip').textContent = t.reviewTrip;
+    document.getElementById('reviewHoliday').textContent = t.reviewHoliday;
+    // Footer
+    document.getElementById('footerText').textContent = t.footerText;
+
+    // Hide lang overlay, show name modal
+    document.getElementById('langOverlay').style.display = 'none';
+    document.getElementById('modal').style.display = 'flex';
+  }
+
+  document.getElementById('guestNameInput').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') enterPortal();
+  });
+
+  function enterPortal() {
+    const input = document.getElementById('guestNameInput').value.trim();
+    const t = T[currentLang];
+    guestName = input || 'Valued Guest';
+    document.getElementById('heroName').textContent = guestName;
+    document.getElementById('welcomeMessage').textContent = t.welcomeMsg(guestName);
+    document.getElementById('modal').style.opacity = '0';
+    document.getElementById('modal').style.transition = 'opacity 0.5s';
+    setTimeout(() => document.getElementById('modal').style.display = 'none', 500);
+  }
+
+  // ── NAVBAR SCROLL ──
+  window.addEventListener('scroll', function() {
+    const nav = document.getElementById('navbar');
+    if (window.scrollY > 60) nav.classList.add('scrolled');
+    else nav.classList.remove('scrolled');
+  });
+
+  // ── REVEAL ON SCROLL ──
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+
+  // ── FAQ TOGGLE ──
+  function toggleFaq(btn) {
+    const item = btn.closest('.faq-item');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  }
+
+  // ── QUICK ACTIONS ──
+  let qaVisible = false;
+  function showQuickActions() {
+    const qa = document.getElementById('quickActions');
+    qaVisible = !qaVisible;
+    qa.style.display = qaVisible ? 'block' : 'none';
+  }
+
+  function quickSend(msg) {
+    document.getElementById('chatInput').value = msg;
+    sendMessage();
+  }
+
+  // ── SEND MESSAGE ──
+  async function sendMessage() {
+    const input = document.getElementById('chatInput');
+    const response = document.getElementById('chatResponse');
+    const message = input.value.trim();
+    if (!message) return;
+
+    response.style.display = 'block';
+    response.classList.add('visible');
+    response.textContent = '✦  Your message has been received...';
+    response.style.color = 'var(--gold)';
+
+    try {
+      const res = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model: 'claude-sonnet-4-6',
+          max_tokens: 1000,
+          system: T[currentLang].aiSystem(guestName),
+          messages: [{ role: 'user', content: message }]
+        })
+      });
+      const data = await res.json();
+      const reply = data.content?.[0]?.text || 'Thank you for your message. I will attend to this personally right away.';
+      response.textContent = `✦  ${reply}`;
+      response.style.color = 'var(--cream)';
+    } catch (err) {
+      response.textContent = `✦  Thank you, ${guestName}. Your message has been received and I'll respond personally within moments.`;
+      response.style.color = 'var(--cream)';
+    }
+
+    input.value = '';
+  }
+</script>
+</body>
+</html>
